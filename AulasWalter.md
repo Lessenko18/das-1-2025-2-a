@@ -59,6 +59,7 @@ M - Dados
 V - HTML
 C - Controlar a tela
 
+```
 package br.univille;
 
 import javax.swing.JButton;
@@ -103,7 +104,7 @@ public class Janelinha extends JFrame {
         JOptionPane.showMessageDialog(null, "NÃO ACREDITO");
     }
     }
-
+```
 ---//---
 
 # Aula 3 - 11/08/2025 !!
@@ -151,7 +152,12 @@ SOLID:
 
 L: Princípio de substituição de Liskov - redefinição de métodos de classe base em classe filho (aplicado quando tem herança). Se há uma herança, com vários filhos, o código dos filhos deve ser feita de tal maneira a manter a compatibilidade com o pai, caso elas forem substituídas (sem quebrar o padrão que o pai tem) Filho(método x) -> Pai <- Filho2(Método x) | aplicar os dois filhos não quebra a classe
 
+# Aula 5 25/08/2025
+Implementação Observer
+https://github.com/Lessenko18/das-1-2025-2-a/tree/2cec642fdb3a6c96d3d7162c08b9f0fbce069083/designpatterns
+
 # Aula 6 - 26/08/2025
+
 Para desenvolver um bom software, é fundamental construir uma estrutura sólida. Essa estrutura é definida por meio da arquitetura de software, que pode ser entendida a partir de três dimensões principais:
 
 1. Características da Arquitetura
@@ -183,7 +189,6 @@ Devem ser seguidos sempre que possível, garantindo que o sistema permaneça pad
 Exemplos: separação de responsabilidades, coesão de módulos, baixo acoplamento.
 
 # Aula 7 - 01/09/2025
-
 
 # Arquitetura de Software
 
