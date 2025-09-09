@@ -228,3 +228,64 @@ A ideia é simples: aproximar desenvolvimento e operações para entregar valor 
 - Feedback constante: aprender com cada entrega, corrigir e melhorar.
 
 Responsabilidade compartilhada: se o sistema cair, ninguém “joga a bomba” para o outro time. Todos trabalham juntos para resolver.
+
+# Aula 02/09
+
+A principal diferença entre um arquiteto e um desenvolvedor está no foco: enquanto o desenvolvedor prioriza a profundidade, o arquiteto busca a amplitude. O desenvolvedor tende a se especializar em áreas específicas, aprofundando-se em detalhes técnicos, já o arquiteto procura compreender um panorama mais amplo.
+
+Para o arquiteto, o mais relevante é o meio e o topo da pirâmide de conhecimento, que representam a visão técnica abrangente. Nesse contexto, é mais valioso conhecer diversas maneiras de resolver um problema do que dominar apenas uma única abordagem.
+
+Assim, ao fazer a transição de desenvolvedor para arquiteto, é essencial mudar a forma de adquirir conhecimento, buscando equilibrar o portfólio entre profundidade e amplitude.
+
+# 08/09
+
+
+## Compensações (Trade-offs)
+
+Sempre que se define uma arquitetura, não é possível atender a todas as demandas ao mesmo tempo.  
+Como se costuma dizer: **“não existem respostas certas ou erradas, apenas compensações.”**
+
+---
+
+## Arquitetura baseada em tópicos
+
+- Funciona de forma semelhante a um **grupo de família no WhatsApp**  
+- Segue um padrão parecido com o **Observer**:  
+  - **Publisher** → envia mensagens  
+  - **Subscriber(s)** → recebem mensagens (um ou muitos)  
+- Os assinantes se inscrevem em um **broker** (tópico), que distribui as mensagens  
+- Caso o tópico saia do ar no momento da entrega, a mensagem pode ser perdida  
+- A inclusão de novos subscribers é simples, sem necessidade de mudanças na arquitetura  
+
+**Vantagens:**  
+- Baixo acoplamento  
+- Facilidade de expansão  
+
+**Desvantagens:**  
+- Rastreabilidade de problemas limitada  
+- Possibilidade de perda de mensagens  
+
+---
+
+## Arquitetura baseada em filas
+
+- Modelo: **Sender <-> Fila <-> Receiver**  
+- As mensagens são enviadas (**enqueue**) para a fila e consumidas (**dequeue**) pelo receiver  
+- Relação de **1 sender para 1 receiver**  
+- Cada receiver possui sua própria fila, independente dos demais  
+- **Garantia de entrega em ordem**  
+- A fila funciona como **buffer**, armazenando mensagens temporariamente  
+- O receiver consulta a fila (**polling**) para buscar novas mensagens  
+- Ao incluir um novo receiver, é necessário:  
+  - Criar uma nova fila  
+  - Ajustar o sender  
+  - Conectar ambos  
+  - Isso gera maior impacto na arquitetura  
+
+**Vantagens:**  
+- Maior rastreabilidade de problemas  
+- Confiabilidade na entrega  
+
+**Desvantagens:**  
+- Maior acoplamento  
+- Maior complexidade de manutenção  
