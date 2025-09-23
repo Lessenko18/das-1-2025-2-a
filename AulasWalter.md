@@ -1,77 +1,91 @@
 # Turma: das-1-2025-2-a
 
-# Aula 1 - 04/08/2025 !!
+# 📘 AulasWalter - Notas de Aula (2025/2)
 
-Principios de projeto de software - Capitulo 5 do livro
+Este repositório contém minhas anotações organizadas por aula, com conceitos de **Design e Arquitetura de Software**, **Princípios de Projeto**, **SOLID**, **Padrões de Projeto** e temas complementares como **DevOps** e **Trade-offs**.
 
-Padrões mitigam a complexidade
+---
 
-# Abstração:
+## Aula 1 - 04/08/2025
 
-Seria representar algo do mundo real para resolver um problema
+### 🔹 Abstração
 
-Config <-- configurações
+* Representar algo do mundo real dentro do software.
+* Exemplo: classes `Entity` modelam dados do banco.
 
-Controller <-- html, api, rest
+**Organização em camadas:**
 
-Entity <-- dados
+* **Controller** - API REST / HTML
+* **Entity** - Dados
+* **Repository** - Comunicação com BD
+* **Service** - Regras de negócio
+* **Config** - Centraliza configurações
 
-Repository <-- Con db
+---
 
-Service <-- Lógica
+### 🔹 Ocultamento de Informação (Encapsulamento)
 
-# Ocultamento de informação:
+* Esconder detalhes internos da classe, expondo apenas o necessário.
+* Em Java: atributos `private` + métodos `get/set`.
 
-Não há necessidade de entender todo o funcionamento de um framework para poder usa-lo
+### 🔹 Coesão
 
-# Código Coeso (Coesão)
+* Medida de quão focada é uma classe/módulo em uma única responsabilidade.
+* **Alta coesão = mais fácil de manter.**
 
-Um código que realiza uma tarefa muito bem feita!
-Elementos de um módulo (como classes, funções ou pacotes) estão relacionados e trabalham juntos para um propósito único e bem definido.
+### 🔹 Acoplamento
 
-# Acoplamento
+* Grau de dependência entre classes.
+* **Baixo acoplamento** é desejável → facilita manutenção e reuso.
 
-- Acoplamento: dependência de uma classe com outra
-- Autoacoplamento: instanciação e uso de um método no construtor de outra class
+**Diagrama UML:**
 
-UML
+* 🔹 Flecha vazia contínua - Herança
+* 🔹 Flecha vazia pontilhada - Interface
+* 🔹 Flecha cheia - Associação
 
-- Flecha vazia: herança
-- Flecha tracejada: implementação
-- Flecha cheia: Associação
+**Classe anêmica:** classe com apenas atributos + getters/setters (sem comportamento).
 
----//---
+---
 
-# Aula 2 - 05/08/2025 !!
+## Aula 2 - 05/08/2025
 
-O que é SOLID?
+### 🔹 Padrões de Código
 
-Usar a orientação a objetos do jeito mais correto possível!
+* Seguir convenções melhora leitura e manutenção.
+* Java: `CamelCase` para classes e `camelCase` para variáveis.
 
-S — Single Responsibility Principle (Princípio da responsabilidade única)
-O — Open-Closed Principle (Princípio Aberto-Fechado)
-L — Liskov Substitution Principle (Princípio da substituição de Liskov)
-I — Interface Segregation Principle (Princípio da Segregação da Interface)
-D — Dependency Inversion Principle (Princípio da inversão da dependência)
+### 🔹 SOLID (Introdução)
 
-Maneira de usar o conceito de responsábildiade única
-M - Dados
-V - HTML
-C - Controlar a tela
+Aplicar corretamente a **Orientação a Objetos**:
 
-```
+* **S** → Single Responsibility Principle
+* **O** → Open-Closed Principle
+* **L** → Liskov Substitution Principle
+* **I** → Interface Segregation Principle
+* **D** → Dependency Inversion Principle
+
+**Arquitetura MVC:**
+
+* **Model** → Dados (Entidade)
+* **View** → Interface (HTML / tela)
+* **Controller** → Intermediário entre Model e View
+
+**Exemplo prático (Swing em Java):**
+
+```java
 package br.univille;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Janelinha extends JFrame {
-
     private JButton botaozinho;
     private Controlador controlador;
 
     public Janelinha() {
-        setTitle("Eu não acredito");
+        setTitle("Exemplo MVC");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -80,212 +94,190 @@ public class Janelinha extends JFrame {
         botaozinho.addActionListener(controlador);
 
         add(botaozinho);
-
         setVisible(true);
     }
 
     public static void main(String[] args) {
         new Janelinha();
     }
-    package br.univille;
-
-    import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
-    import javax.swing.JOptionPane;
-
-    public class Controlador implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        meClica();
-    }
-
-    private void meClica() {
-        JOptionPane.showMessageDialog(null, "NÃO ACREDITO");
-    }
-    }
+}
 ```
----//---
-
-# Aula 3 - 11/08/2025 !!
-
-#Princípio da Inversão de Dependência (Dependency Inversion Principle)
-Em vez de o Controller depender diretamente de uma implementação concreta, ele deve se comunicar primeiro com uma interface ou abstração.
-Isso evita o acoplamento direto entre classes, facilitando a manutenção, a troca de implementações e a realização de testes.
-A ideia central é: módulos de alto nível não devem depender de módulos de baixo nível, ambos devem depender de abstrações.
-
-# Prefira Composição à Herança
-
-A herança deve ser usada apenas quando existe uma relação clara do tipo "é um" (is-a), por exemplo:
-
-- Animal → Gato
-
-- Animal → Cachorro
-
-Um gato nunca se tornará um cachorro, ou vice-versa.
-Quando a relação não for estritamente hierárquica, prefira composição, ou seja, construir comportamentos combinando diferentes objetos, em vez de criar cadeias de herança profundas.
-
-A composição oferece mais flexibilidade, evita acoplamento excessivo e facilita a reutilização de código.
-
---//--
-
-# Princípio de Demeter (Menor Conhecimento)
-
-Também chamado de Law of Demeter.
-
-A ideia é evitar dependências desnecessárias e não acessar diretamente objetos internos de outros objetos.
-Fuja de variáveis globais e trabalhe com as informações locais e disponíveis no contexto atual.
-
---//--
-
-# Princípio do Aberto/Fechado (Open/Closed Principle)
-
-Um objeto deve proteger seu comportamento para que ninguém possa quebrá-lo alterando diretamente sua lógica interna.
-A ideia é que quem cria a classe não quer que ela seja modificada, mas sim estendida com novas funcionalidades.
-
-Aberto para extensão, fechado para modificação
-Proteja o que a classe já faz, mas permita adicionar novos comportamentos sem alterar o código existente.
-
-# Aula 4 - 12/08/2025
-
-SOLID:
-
-L: Princípio de substituição de Liskov - redefinição de métodos de classe base em classe filho (aplicado quando tem herança). Se há uma herança, com vários filhos, o código dos filhos deve ser feita de tal maneira a manter a compatibilidade com o pai, caso elas forem substituídas (sem quebrar o padrão que o pai tem) Filho(método x) -> Pai <- Filho2(Método x) | aplicar os dois filhos não quebra a classe
-
-# Aula 5 25/08/2025
-Implementação Observer
-https://github.com/Lessenko18/das-1-2025-2-a/tree/2cec642fdb3a6c96d3d7162c08b9f0fbce069083/designpatterns
-
-# Aula 6 - 26/08/2025
-
-Para desenvolver um bom software, é fundamental construir uma estrutura sólida. Essa estrutura é definida por meio da arquitetura de software, que pode ser entendida a partir de três dimensões principais:
-
-1. Características da Arquitetura
-
-São os requisitos não funcionais que direcionam o sistema, como:
-
-Disponibilidade
-Confiabilidade
-Testabilidade
-Escalabilidade
-Segurança
-
-Essas características não podem ser todas atendidas ao mesmo tempo; é preciso selecionar aquelas que melhor se adequam ao contexto do sistema.
-
-2. Decisões de Arquitetura
-
-Correspondem às regras e padrões estabelecidos para garantir consistência no desenvolvimento.
-Sem essas definições, o software pode acumular problemas e se tornar difícil de manter.
-Exemplos de decisões arquiteturais:
-
-Definir entre Monólito ou Microserviços
-Escolher padrões de integração e comunicação
-Definir políticas de versionamento
-
-3. Princípios de Design
-
-São boas práticas e diretrizes que orientam o desenvolvimento dentro da arquitetura escolhida.
-Devem ser seguidos sempre que possível, garantindo que o sistema permaneça padronizado, compreensível e de fácil manutenção.
-Exemplos: separação de responsabilidades, coesão de módulos, baixo acoplamento.
-
-# Aula 7 - 01/09/2025
-
-# Arquitetura de Software
-
-Quando falamos em construir software de qualidade, não dá para pensar só em código. É preciso ter uma arquitetura bem definida, que vai servir como base para o sistema crescer e se manter saudável ao longo do tempo.
-
-# Características da Arquitetura
-
-Essas são as chamadas qualidades não funcionais: disponibilidade, escalabilidade, segurança, desempenho, testabilidade…
-A verdade é: nenhum sistema consegue ser perfeito em tudo. Por isso, o arquiteto precisa escolher quais características são mais importantes para aquele projeto específico.
-Um exemplo bem clássico é decidir se o sistema vai ser Monolito ou Microserviços.
-
-# Princípios de Design
-
-Aqui entram as boas práticas que ajudam a manter o sistema limpo e organizado.
-São as “regras de convivência” do software, que guiam o time e evitam bagunça no futuro.
-
-# O Papel do Arquiteto de Software
-
-- O arquiteto não é só “o cara que desenha caixinhas”. Ele tem responsabilidades bem práticas, como:
-- Tomar decisões difíceis: escolher tecnologias, justificar o porquê de cada decisão, pesar prós e contras.
-- Olhar para o código constantemente: identificar onde precisa refatorar e quando vale a pena mexer.
-- Estar sempre atualizado: acompanhar tendências, ver como novas tecnologias podem ajudar (ou atrapalhar).
-- Garantir que o time siga os padrões: não adianta só decidir, é preciso manter disciplina. Testes e revisões de código ajudam nisso.
-- Ter experiência e bagagem: boas decisões vêm muito da prática e de já ter passado por situações parecidas.
-- Conhecer o negócio: não adianta ser só técnico, precisa entender o contexto do cliente.
-- Saber lidar com pessoas: motivar, inspirar, negociar e até lidar com política dentro da empresa.
-
-Em resumo, o arquiteto precisa ser tanto técnico quanto líder.
-
-# DevOps na Arquitetura
-
-Hoje em dia, não dá para falar de arquitetura sem citar DevOps.
-A ideia é simples: aproximar desenvolvimento e operações para entregar valor mais rápido ao cliente.
-
-- Planejamento: trabalhar em ciclos curtos, como no Scrum.
-- Integração Contínua: ter um repositório confiável e sempre atualizado.
-- Feedback constante: aprender com cada entrega, corrigir e melhorar.
-
-Responsabilidade compartilhada: se o sistema cair, ninguém “joga a bomba” para o outro time. Todos trabalham juntos para resolver.
-
-# Aula 02/09
-
-A principal diferença entre um arquiteto e um desenvolvedor está no foco: enquanto o desenvolvedor prioriza a profundidade, o arquiteto busca a amplitude. O desenvolvedor tende a se especializar em áreas específicas, aprofundando-se em detalhes técnicos, já o arquiteto procura compreender um panorama mais amplo.
-
-Para o arquiteto, o mais relevante é o meio e o topo da pirâmide de conhecimento, que representam a visão técnica abrangente. Nesse contexto, é mais valioso conhecer diversas maneiras de resolver um problema do que dominar apenas uma única abordagem.
-
-Assim, ao fazer a transição de desenvolvedor para arquiteto, é essencial mudar a forma de adquirir conhecimento, buscando equilibrar o portfólio entre profundidade e amplitude.
-
-# 08/09
-
-
-## Compensações (Trade-offs)
-
-Sempre que se define uma arquitetura, não é possível atender a todas as demandas ao mesmo tempo.  
-Como se costuma dizer: **“não existem respostas certas ou erradas, apenas compensações.”**
 
 ---
 
-## Arquitetura baseada em tópicos
+## Aula 3 - 11/08/2025
 
-- Funciona de forma semelhante a um **grupo de família no WhatsApp**  
-- Segue um padrão parecido com o **Observer**:  
-  - **Publisher** → envia mensagens  
-  - **Subscriber(s)** → recebem mensagens (um ou muitos)  
-- Os assinantes se inscrevem em um **broker** (tópico), que distribui as mensagens  
-- Caso o tópico saia do ar no momento da entrega, a mensagem pode ser perdida  
-- A inclusão de novos subscribers é simples, sem necessidade de mudanças na arquitetura  
+### 🔹 Princípio da Inversão de Dependências
 
-**Vantagens:**  
-- Baixo acoplamento  
-- Facilidade de expansão  
+* Módulos de alto nível **não devem depender** de baixo nível. Ambos devem depender de abstrações (interfaces).
+* Evita dependência direta entre classes.
 
-**Desvantagens:**  
-- Rastreabilidade de problemas limitada  
-- Possibilidade de perda de mensagens  
+### 🔹 Prefira Composição à Herança
+
+* Use **herança** apenas quando existe relação “é um” (*is-a*).
+* Prefira **composição** para flexibilidade e reuso.
+
+### 🔹 Princípio de Demeter (Menor Conhecimento)
+
+* Uma classe deve conhecer **apenas o necessário**.
+* Evitar encadeamento excessivo (`obj.getX().getY().getZ()`).
+
+### 🔹 Aberto/Fechado
+
+* Classes devem estar abertas para **extensão** mas fechadas para **modificação**.
+* Evita quebrar funcionalidades já existentes.
 
 ---
 
-## Arquitetura baseada em filas
+## Aula 4 - 12/08/2025
 
-- Modelo: **Sender <-> Fila <-> Receiver**  
-- As mensagens são enviadas (**enqueue**) para a fila e consumidas (**dequeue**) pelo receiver  
-- Relação de **1 sender para 1 receiver**  
-- Cada receiver possui sua própria fila, independente dos demais  
-- **Garantia de entrega em ordem**  
-- A fila funciona como **buffer**, armazenando mensagens temporariamente  
-- O receiver consulta a fila (**polling**) para buscar novas mensagens  
-- Ao incluir um novo receiver, é necessário:  
-  - Criar uma nova fila  
-  - Ajustar o sender  
-  - Conectar ambos  
-  - Isso gera maior impacto na arquitetura  
+### 🔹 Liskov Substitution Principle (LSP)
 
-**Vantagens:**  
-- Maior rastreabilidade de problemas  
-- Confiabilidade na entrega  
+* Classes filhas devem poder substituir a classe pai **sem alterar comportamento esperado**.
+* Exemplo: `Quadrado` não deve herdar de `Retângulo` se isso quebrar cálculos de área.
 
-**Desvantagens:**  
-- Maior acoplamento  
-- Maior complexidade de manutenção  
+---
+
+## Aula 5 - 25/08/2025
+
+### 🔹 Padrão Observer
+
+* Define relação **um-para-muitos**.
+* Quando o *Subject* muda, notifica todos os *Observers*.
+
+**Exemplo em Java:**
+
+```java
+// Interface Observer
+public interface Observer {
+    void update(String message);
+}
+
+// Subject
+import java.util.ArrayList;
+import java.util.List;
+
+public class Publisher {
+    private List<Observer> observers = new ArrayList<>();
+    public void addObserver(Observer o) { observers.add(o); }
+    public void notifyObservers(String msg) {
+        for (Observer o : observers) o.update(msg);
+    }
+}
+
+// Concrete Observer
+public class Subscriber implements Observer {
+    private String name;
+    public Subscriber(String name) { this.name = name; }
+    public void update(String msg) {
+        System.out.println(name + " recebeu: " + msg);
+    }
+}
+```
+
+---
+
+## Aula 6 - 26/08/2025
+
+### 🔹 Arquitetura de Software
+
+* Estrutura que define como o sistema cresce e se mantém saudável.
+
+**Características (requisitos não funcionais):**
+
+* Disponibilidade, Escalabilidade, Segurança, Testabilidade, Desempenho.
+
+**Decisões arquiteturais:**
+
+* Monólito vs Microsserviços
+* Padrões de integração (REST, mensageria)
+* Políticas de versionamento
+
+**Princípios de Design:**
+
+* Separação de responsabilidades
+* Baixo acoplamento
+* Alta coesão
+
+---
+
+## Aula 7 - 01/09/2025
+
+### 🔹 Papel do Arquiteto
+
+* Tomar decisões difíceis (tecnologias, trade-offs).
+* Refatorar e revisar código.
+* Manter-se atualizado.
+* Conhecer o negócio.
+* Lidar com pessoas (liderança, negociação).
+
+### 🔹 DevOps
+
+* Integração entre Dev e Ops.
+* Práticas: Integração Contínua, Entrega Contínua, Feedback rápido.
+* Responsabilidade compartilhada.
+
+---
+
+## Aula 8 - 08/09/2025
+
+### 🔹 Trade-offs
+
+* Não existe solução perfeita.
+* Toda decisão arquitetural envolve **ganhos e perdas**.
+* Exemplo: Microsserviços → mais escalável, mas aumenta complexidade.
+
+### 🔹 Arquitetura baseada em Tópicos
+
+* Comunicação **Publisher - Broker - Subscribers**.
+* Vantagens: baixo acoplamento, expansão fácil.
+* Desvantagens: risco de perda de mensagens.
+
+### 🔹 Arquitetura baseada em Filas
+
+* Modelo **Sender → Queue → Receiver**.
+* Vantagens: garante ordem e confiabilidade.
+* Desvantagens: mais acoplamento e complexidade.
+
+---
+
+## Aula 9 - Padrões de Projeto (GoF)
+
+### Categorias
+
+* **Criacionais** → Factory, Singleton, Builder
+* **Estruturais** → Adapter, Facade, Composite, Decorator
+* **Comportamentais** → Observer, Strategy, State
+
+### Factory Method
+
+* Centraliza criação de objetos.
+* Facilita troca de implementação (TCP → UDP).
+
+### Singleton
+
+* Garante única instância global.
+
+### Observer
+
+* Relação um-para-muitos.
+* Usado em notificações/eventos.
+
+---
+
+## Aula 10 - Expectativas de um Arquiteto
+
+* Ser **técnico e líder** ao mesmo tempo.
+* Manter a arquitetura **relevante e atualizada**.
+* Equilibrar decisões técnicas e estratégicas.
+* Conhecer profundamente o **negócio**.
+* Buscar formação em “T”: **amplitude + profundidade**.
+
+---
+
+## 📌 Conclusão
+
+* O estudo de Arquitetura e Design vai além da codificação: trata de **estratégia**, **qualidade** e **liderança**.
+* Bons sistemas nascem de **decisões conscientes** (trade-offs bem analisados) e da aplicação de **padrões e princípios** corretos.
+
+ "Um arquiteto não é só quem desenha caixinhas, mas quem garante que o sistema entrega valor de forma sustentável."
