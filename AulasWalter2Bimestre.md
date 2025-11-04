@@ -110,3 +110,68 @@ Cada camada tem uma função e responsabilidade:
 
 Essa separação ajuda cada dev a focar na parte que entende melhor e
 facilita manutenção.
+## Aula 15 - 20/10/2025
+
+### Estilo de Arquitetura em Camadas  
+**Resumo do Capítulo 10**
+
+A arquitetura em camadas é um dos estilos mais utilizados por ser simples, de fácil implementação e de baixo custo.  
+Seu objetivo é organizar o sistema em **camadas horizontais**, onde cada uma possui **responsabilidades bem definidas**.
+
+---
+
+### *Topologia*
+
+Os componentes são divididos em camadas horizontais, e cada camada tem uma função específica dentro do sistema.  
+A quantidade de camadas pode variar, mas geralmente encontramos **quatro camadas principais**:
+
+* **Apresentação (UI):** responsável pela interface com o usuário.  
+* **Negócio (ou Comercial):** contém as regras e a lógica da aplicação.  
+* **Persistência:** lida com o acesso e manipulação de dados.  
+* **Banco de Dados:** armazena as informações do sistema.
+
+Cada camada deve ser **independente** e **abstraída das demais**, aplicando o conceito de **separação de responsabilidades**.  
+Isso facilita a manutenção, os testes e o desenvolvimento em equipe — permitindo que cada desenvolvedor atue na camada em que tem maior domínio técnico.
+
+> 💡 *Exemplo:* A camada de apresentação trata apenas da interface visual, sem interferir na lógica de negócios ou na persistência de dados.
+
+---
+
+### Camadas de Isolamento
+
+Cada camada pode ser:
+
+* **Fechada:** a requisição só pode passar pela camada imediatamente abaixo, sem “pular” camadas.  
+* **Aberta:** permite que uma camada superior acesse diretamente outra mais abaixo.
+
+O isolamento garante que as camadas possam ser **substituídas ou modificadas** sem afetar o restante do sistema, mantendo a **independência entre elas**.
+
+---
+
+### Adicionando Camadas
+
+As camadas abertas são úteis quando há necessidade de criar uma **nova camada intermediária** para melhorar a comunicação entre duas camadas já existentes.  
+Isso permite introduzir serviços de cache, adaptação ou segurança sem alterar o restante da estrutura.
+
+---
+
+### Outras Considerações
+
+* A arquitetura em camadas é um **excelente ponto de partida** para a maioria das aplicações, especialmente quando a estrutura do sistema ainda não está bem definida.  
+* Um possível problema é o **antipadrão Sinkhole**, que ocorre quando as requisições passam por várias camadas **sem processamento relevante**, gerando custo desnecessário.
+  
+ Regra80-20: é aceitável que até 20% das requisições sejam *sinkholes*, mas se esse número chegar a 80%, é sinal de que a arquitetura deve ser revisada.
+
+---
+
+### Por que usar esse estilo de arquitetura?
+
+Esse estilo é indicado para:
+
+* **Aplicações pequenas ou médias;**  
+* **Projetos com prazos e orçamentos limitados;**  
+* **Situações em que o arquiteto ainda está definindo os requisitos de negócio.**
+
+Resumo: É uma escolha prática, simples e eficiente para começar, podendo ser evoluída futuramente para arquiteturas mais complexas (como Hexagonal ou Microserviços).
+
+
